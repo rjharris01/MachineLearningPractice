@@ -29,12 +29,21 @@ regressor.fit(X_train, y_train)
 y_pred = regressor.predict(X_test)
 
 np.set_printoptions(precision=2)
-results = np.concatenate((y_pred.reshape(len(y_pred), 1), y_test.reshape(len(y_test), 1)), 1)
+results = np.concatenate(
+    (y_pred.reshape(len(y_pred), 1), y_test.reshape(len(y_test), 1)), 1)
 
 accuracy = 0
 for row in results:
     accuracy = accuracy + row[1]/row[0]*100
 accuracy = accuracy / len(results)
 print(accuracy - 100)
-print (results)
+print(results)
 
+coef = regressor.coef_
+interept = regressor.intercept_
+
+print(coef)
+
+
+print("Profit= {0:.2f} × Dummy State 1 + {1:.2f} × Dummy State 2 + {2:.2f} × Dummy State 3 + {3:.2f} × R&D Spend + {4:.2f} × Administration + {5:.2f} × Marketing Spend + {6:.2f}".format(
+    coef[0], coef[1], coef[2], coef[3], coef[4], coef[5], interept))
